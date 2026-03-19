@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>{{ data.won ? 'You won!' : 'Game over' }}</h2>
+
+<mat-dialog-content>
+  @if (data.won) {
+    <p>You guessed the word in <strong>{{ data.guesses }} {{ data.guesses === 1 ? 'guess' : 'guesses' }}</strong>.</p>
+  } @else {
+    <p>You ran out of guesses. The word was <strong>{{ data.word }}</strong>.</p>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+<button mat-flat-button (click)="playAgain()">Play Again</button>
+</mat-dialog-actions>

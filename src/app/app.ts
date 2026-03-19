@@ -1,25 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
-import { GameService } from './services/game-service';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { GameBoard } from './features/game/components/game-board/game-board';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, ReactiveFormsModule],
+  imports: [GameBoard],
   templateUrl: './app.html',
   styleUrl: './app.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class App {
-  protected readonly title = signal('wordle-clone');
-
-  private gameService = inject(GameService);
-  guesses$ = this.gameService.guessesSubject;
-
-  guessCtrl = new FormControl();
-
-  submitGuess() {
-    this.gameService.checkAnswer(this.guessCtrl.value);
-    this.guessCtrl.reset();
-  }
-}
+export class App {}

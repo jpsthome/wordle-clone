@@ -1,0 +1,47 @@
+.grid-container {
+  display: grid;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+
+  .guess-row {
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: column;
+
+    &.active .letter {
+      border-color: #888;
+    }
+  }
+}
+
+.letter {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  font-weight: bold;
+  font-size: 1.5rem;
+
+  &.wrong {
+    background-color: #787c7e;
+    color: #fff;
+  }
+
+  &.missplaced {
+    background-color: #c9b458;
+    color: #fff;
+  }
+
+  &.correct {
+    background-color: #6aaa64;
+    color: #fff;
+  }
+
+  &.cursor {
+    border-color: #333;
+    border-bottom: 5px solid #333;
+  }
+}

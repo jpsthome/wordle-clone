@@ -1,18 +1,1 @@
-@let guesses = guesses$ | async;
-
-<div class="grid-container">
-  @for (guess of guesses; track $index) {
-    <div class="guess-row">
-      @for (letter of guess; track $index) {
-        <div class="letter {{ letter.state }}">
-          {{ letter.letter }}
-        </div>
-      }
-    </div>
-  }
-</div>
-
-<form>
-  <input type="text" name="guess" [formControl]="guessCtrl" />
-  <button type="button" (click)="submitGuess()">Submit</button>
-</form>
+<app-game-board />

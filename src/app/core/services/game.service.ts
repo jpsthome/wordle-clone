@@ -2,7 +2,28 @@ import { Injectable } from '@angular/core';
 import { faker } from '@faker-js/faker';
 import { BehaviorSubject } from 'rxjs';
 
-const WORDS_LIST = ['TESTE', 'APPLE'];
+const WORDS_LIST = [
+  'APPLE', 'BRAVE', 'CHESS', 'CROWN', 'DANCE',
+  'EAGLE', 'FLAME', 'GRACE', 'HEART', 'HOUSE',
+  'IMAGE', 'JUICE', 'KNIFE', 'LEMON', 'LIGHT',
+  'MAGIC', 'MARCH', 'MONEY', 'NIGHT', 'NOBLE',
+  'OCEAN', 'OLIVE', 'PEACE', 'PILOT', 'PLACE',
+  'PLANT', 'POWER', 'PRIDE', 'QUEEN', 'QUEST',
+  'RADAR', 'RANGE', 'RAVEN', 'REALM', 'RIGHT',
+  'RIVER', 'ROYAL', 'SAINT', 'SCALE', 'SCENE',
+  'SCOUT', 'SHADE', 'SHAKE', 'SHAPE', 'SHARK',
+  'SHORE', 'SHORT', 'SKILL', 'SLATE', 'SMALL',
+  'SMART', 'SMILE', 'SOLAR', 'SOLID', 'SOUTH',
+  'SPACE', 'SPARK', 'SPINE', 'SPORT', 'SQUAD',
+  'STAND', 'STARE', 'START', 'STEEL', 'STERN',
+  'STILL', 'STOCK', 'STONE', 'STORM', 'STORY',
+  'SWIFT', 'SWORD', 'TASTE', 'THICK', 'TIGER',
+  'TITLE', 'TORCH', 'TOTAL', 'TOUGH', 'TOWER',
+  'TRACK', 'TRAIL', 'TRAIN', 'TREAT', 'TREND',
+  'TRIBE', 'TRICK', 'TRUST', 'TRUTH', 'TWICE',
+  'ULTRA', 'UNION', 'VALOR', 'VALUE', 'VIVID',
+  'WASTE', 'WATER', 'WHALE', 'WHITE', 'WORLD',
+];
 
 export interface LetterState {
   letter?: string;
@@ -19,7 +40,7 @@ export class GameService {
   guessNumber = 0;
   guessesSubject = new BehaviorSubject<Array<Array<LetterState>>>(this.guesses);
 
-  checkAnswer(answer: string) {
+  checkAnswer(answer: string): boolean {
     const selectedWordArray = this.selectedWord.split('');
     const guessedWordArray = answer.toUpperCase().split('');
     const answerState: LetterState[] = new Array(guessedWordArray.length);
@@ -48,6 +69,14 @@ export class GameService {
 
     this.guesses[this.guessNumber] = answerState;
     this.guessNumber++;
+    this.guessesSubject.next(this.guesses);
+    return answerState.every((s) => s.state === 'correct');
+  }
+
+  reset() {
+    this.selectedWord = faker.helpers.arrayElement(WORDS_LIST);
+    this.guessNumber = 0;
+    this.guesses = Array.from({ length: 6 }, this.createEmptyGuess);
     this.guessesSubject.next(this.guesses);
   }
 

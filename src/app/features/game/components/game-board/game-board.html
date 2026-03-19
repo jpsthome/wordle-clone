@@ -1,0 +1,14 @@
+@let guesses = guesses$ | async;
+
+<div class="grid-container">
+  @for (guess of guesses!; track $index) {
+    @let isActive = $index === gameService.guessNumber;
+    @let rowLetters = isActive ? currentRowLetters() : guess;
+    <div class="guess-row" [class.active]="isActive">
+      @for (letter of rowLetters; track $index) {
+        @let isCursor = isActive && $index === currentInput().length;
+        <div class="letter {{ letter.state }}" [class.cursor]="isCursor">{{ letter.letter }}</div>
+      }
+    </div>
+  }
+</div>
